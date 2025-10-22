@@ -1,14 +1,18 @@
 import React from "react";
+import { motion } from "framer-motion";
 
-export default function Card({ icon, title, description, onClick }) {
+const card = ({ icon, title, description, onClick }) => {
   return (
-    <div
+    <motion.div
+      whileHover={{ scale: 1.05, y: -5 }}
+      className="p-6 bg-white rounded-2xl shadow-md hover:shadow-2xl transition cursor-pointer"
       onClick={onClick}
-      className="bg-white shadow-lg rounded-2xl p-6 cursor-pointer transform transition hover:scale-105 hover:shadow-xl"
     >
-      <div className="text-4xl mb-3">{icon}</div>
+      <div className="text-4xl mb-4">{icon}</div>
       <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-gray-600 text-sm">{description}</p>
-    </div>
+      <p className="text-gray-600">{description}</p>
+    </motion.div>
   );
-}
+};
+
+export default card;

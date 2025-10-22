@@ -1,67 +1,103 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
-import aventadorBg from "../../assets/2017_Lamborghini_Huracan_LP610.jpg";
+import { motion } from "framer-motion";
 
-export default function OrderPage() {
+const OrderPage = () => {
+  const [photo, setPhoto] = useState(null);
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) setPhoto(URL.createObjectURL(file));
+  };
+
   return (
-    <div
-      className="min-h-screen bg-cover bg-center relative text-white"
-      style={{ backgroundImage: `url(${aventadorBg})` }}
-    >
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+    <div className="bg-gray-50 min-h-screen">
+      <Navbar />
 
-      <div className="relative z-10">
-        <Navbar />
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="max-w-5xl mx-auto mt-12 bg-white shadow-md rounded-2xl p-10"
+      >
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
+          Tesla Order Page
+        </h1>
 
-        {/* Content */}
-        <div className="flex flex-col items-center justify-center py-20 px-4">
-          <h2 className="text-4xl font-extrabold mb-6 text-yellow-500 text-center drop-shadow-lg">
-            Reserve Your Lamborghini
-          </h2>
-          <p className="text-gray-300 mb-10 text-center max-w-lg">
-            Complete the form below to start your Lamborghini order request. Our
-            team will contact you to confirm your configuration.
-          </p>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Order Form */}
-          <form className="bg-black/70 border border-yellow-600 shadow-lg rounded-2xl p-8 w-full max-w-md space-y-5 backdrop-blur-md">
-            <input
-              type="text"
-              placeholder="Full Name"
-              className="w-full bg-transparent border border-gray-500 p-3 rounded-md focus:border-yellow-500 outline-none placeholder-gray-400 text-white transition"
-            />
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="w-full bg-transparent border border-gray-500 p-3 rounded-md focus:border-yellow-500 outline-none placeholder-gray-400 text-white transition"
-            />
-            <input
-              type="tel"
-              placeholder="Contact Number"
-              className="w-full bg-transparent border border-gray-500 p-3 rounded-md focus:border-yellow-500 outline-none placeholder-gray-400 text-white transition"
-            />
+          <form className="space-y-4">
+            <div>
+              <label className="block text-gray-700 mb-1">Full Name</label>
+              <input
+                type="text"
+                className="w-full border border-gray-300 rounded-lg p-2"
+                placeholder="Enter your name"
+              />
+            </div>
 
-            <select className="w-full bg-transparent border border-gray-500 p-3 rounded-md focus:border-yellow-500 outline-none text-gray-400 transition">
-              <option value="">Select Model</option>
-              <option value="Aventador">Aventador</option>
-              <option value="Huracán">Huracán</option>
-              <option value="Urus">Urus</option>
-            </select>
+            <div>
+              <label className="block text-gray-700 mb-1">Email</label>
+              <input
+                type="email"
+                className="w-full border border-gray-300 rounded-lg p-2"
+                placeholder="Enter your email"
+              />
+            </div>
+
+            <div>
+              <label className="block text-gray-700 mb-1">Select Model</label>
+              <select className="w-full border border-gray-300 rounded-lg p-2">
+                <option>Model S</option>
+                <option>Model 3</option>
+                <option>Model X</option>
+                <option>Model Y</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-gray-700 mb-1">Delivery Address</label>
+              <textarea
+                className="w-full border border-gray-300 rounded-lg p-2"
+                placeholder="Enter your address"
+              ></textarea>
+            </div>
 
             <button
               type="submit"
-              className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-3 rounded-full transition-all duration-300"
+              className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-lg"
             >
               Submit Order
             </button>
           </form>
 
-          {/* Info */}
-         
-          
+          {/* Photo Upload Section */}
+          <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-6">
+            {photo ? (
+              <img
+                src={photo}
+                alt="Uploaded"
+                className="w-64 h-64 object-cover rounded-xl shadow-md"
+              />
+            ) : (
+              <div className="text-gray-500 text-center">
+                <p className="mb-4">Upload your photo</p>
+                <label className="cursor-pointer bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg">
+                  Choose File
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
-}
+};
+
+export default OrderPage;

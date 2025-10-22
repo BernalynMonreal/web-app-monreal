@@ -1,18 +1,23 @@
 import React from "react";
+import { motion } from "framer-motion";
 
-const buttonStyles = {
-  primary: "bg-blue-600 hover:bg-blue-700 text-white",
-  secondary: "bg-gray-200 hover:bg-gray-300 text-gray-800",
-  outline: "border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-};
+const PrimaryButton = ({ label, onClick, type = "primary" }) => {
+  const styles = {
+    primary: "bg-red-600 hover:bg-red-700 text-white",
+    secondary: "bg-gray-800 hover:bg-gray-900 text-white",
+    outline: "border border-red-600 text-red-600 hover:bg-red-600 hover:text-white",
+  };
 
-export default function PrimaryButton({ label, onClick, type = "primary" }) {
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className={`px-5 py-2 rounded-full font-medium transition-all duration-300 ${buttonStyles[type]}`}
+      className={`px-6 py-2 rounded-full font-semibold transition ${styles[type]}`}
     >
       {label}
-    </button>
+    </motion.button>
   );
-}
+};
+
+export default PrimaryButton;

@@ -1,14 +1,47 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
-export default function Navbar() {
+const Navbar = () => {
+  const linkClass = ({ isActive }) =>
+    `hover:text-red-500 transition font-medium ${
+      isActive ? "text-red-500" : "text-white"
+    }`;
+
   return (
-    <nav className="bg-white shadow-md px-8 py-4 flex justify-between items-center">
-      <h1 className="text-2xl font-bold text-blue-700">Car Company</h1>
-      <ul className="flex gap-6 text-gray-700 font-medium">
-        <li><a href="/">Home</a></li>
-        <li><a href="/listing">Cars</a></li>
-        <li><a href="/order">Order</a></li>
+    <nav className="flex justify-between items-center px-10 py-4 bg-black text-white sticky top-0 z-50 shadow-md">
+      <NavLink to="/" className="text-2xl font-bold tracking-wide">
+        TESLA
+      </NavLink>
+
+      <ul className="flex space-x-8">
+        <li>
+          <NavLink to="/" className={linkClass}>
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/listing" className={linkClass}>
+            Models
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/order" className={linkClass}>
+            Order
+          </NavLink>
+        </li>
+        <li>
+          <a
+            href="https://shop.tesla.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-red-500 transition"
+          >
+            Shop
+          </a>
+        </li>
       </ul>
     </nav>
   );
-}
+};
+
+export default Navbar;
